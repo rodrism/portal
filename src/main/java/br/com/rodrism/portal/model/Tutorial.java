@@ -2,9 +2,9 @@ package br.com.rodrism.portal.model;
 
 import java.util.UUID;
 
+
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
-
 
 
 @Table

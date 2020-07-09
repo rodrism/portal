@@ -48,7 +48,7 @@ public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = f
 }
 	 */
 
-	@GetMapping("/tutorialsro")
+	@GetMapping("/tutor")
 	public ArrayList<Tutorial> getAllTutorial(@RequestParam(required = false) String title){
 		ArrayList<Tutorial> _lista;
 		_lista = (ArrayList<Tutorial>)tutorialRepository.findByTitleContaining(title);
@@ -70,19 +70,24 @@ public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = f
 
 
 	@PostMapping("/tutorialsro")
-	public ResponseEntity<Tutorial> createTutorial2(Tutorial tutorial){
+	public ResponseEntity<Tutorial> createTutorial2(@RequestBody Tutorial tutorial){
 
 		try {
 			Tutorial _tutorial = tutorialRepository.save(new Tutorial(tutorial.getId(), tutorial.getTitle(), tutorial.getDescription(), false));
 			System.out.println(_tutorial.getDescription());
 			return ResponseEntity.ok(_tutorial);
 		} catch (Exception e) {
+			System.out.println(tutorial.toString());
 			return ResponseEntity.status(404).build();
-
 		}
-
-
 	}
-
+	
+	/*
+	@PostMapping("/buscaracf")
+	public Usuario buscaRacf(@RequestBody Usuario racf) {
+		Usuario rf = dao.findByRacf(racf.getRacf());
+		return rf;
+	}
+	*/
 }
 
