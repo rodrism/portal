@@ -2,13 +2,18 @@ package br.com.rodrism.portal.model;
 
 import java.util.UUID;
 
-
+import org.springframework.data.cassandra.core.mapping.CassandraType;
+import org.springframework.data.cassandra.core.mapping.CassandraType.Name;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
+
+import com.datastax.oss.driver.api.core.uuid.Uuids;
 
 
 @Table
 public class Tutorial {
+
+  @CassandraType(type = Name.UUID)
   @PrimaryKey
   private UUID id;
 

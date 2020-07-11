@@ -1,17 +1,17 @@
 package br.com.rodrism.portal.model;
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-
+@EntityScan
 @Table("tbl_people")
 public class Person {
 	
 	@PrimaryKey
 	private PersonKey key;
 	
-
 	@Column("last_name")
 	private String lastName;
 	

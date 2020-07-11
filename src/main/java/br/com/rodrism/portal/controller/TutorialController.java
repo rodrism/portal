@@ -1,8 +1,11 @@
 package br.com.rodrism.portal.controller;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.cassandra.core.mapping.CassandraType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.datastax.oss.driver.api.core.uuid.Uuids;
+import com.datastax.oss.driver.internal.core.type.codec.UuidCodec;
 
 import br.com.rodrism.portal.model.Tutorial;
 import br.com.rodrism.portal.repository.TutorialRepository;
@@ -54,6 +60,14 @@ public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = f
 		_lista = (ArrayList<Tutorial>)tutorialRepository.findByTitleContaining(title);
 		return _lista;
 	}
+	
+	@GetMapping("/listatutoriais")
+	public List<Tutorial> getAll(){
+		
+		List<Tutorial> lista;
+		lista = tutorialRepository.findAll();
+		return lista;
+	}
 
 
 	@PostMapping("/tutorialssite")
@@ -66,6 +80,14 @@ public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = f
 			System.out.println(tutorial.toString());
 			return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
 		}
+	}
+	
+	@PostMapping("/cadastrarTutorial")
+	public ResponseEntity<Tutorial> insertTutorial(@RequestBody Tutorial tutorial){
+		Tutorial tuto = new Tutorial(Uuids.timeBased(),tutorial.getTitle(),tutorial.getDescription(), false);
+		tutorialRepository.save(tuto);
+		return ResponseEntity.ok(tuto);
+		
 	}
 
 
