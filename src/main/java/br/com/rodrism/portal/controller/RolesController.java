@@ -1,5 +1,6 @@
 package br.com.rodrism.portal.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,25 +9,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.rodrism.portal.model.Keyspace;
-import br.com.rodrism.portal.repository.KeyspaceRepository;
+import br.com.rodrism.portal.model.Roles;
+import br.com.rodrism.portal.repository.RolesRepository;
+
 
 @CrossOrigin(origins = "*")
-@RequestMapping("/api")
 @RestController
-public class KeyspaceController {
+@RequestMapping("/api")
+public class RolesController {
 	
 	@Autowired
-	KeyspaceRepository keyspaceRepository;
+	RolesRepository rolesRepository;
 	
-	@GetMapping("/keyspaces")
-	public List<Keyspace>  listaKeyspaces() {
+	
+	@GetMapping("/roles")
+	public List<Roles> listAllRoles(){
 		
-		List<Keyspace> keyspaces;
+		List<Roles> lista = rolesRepository.findAll();
 		
-		keyspaces = keyspaceRepository.findAll();
-		
-		return keyspaces;
+		return lista;
 	}
-	
+
 }
